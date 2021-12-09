@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html Lang ="en">
+    <head>
+       
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" contents="IE-edge">
+        <meta name= "viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script src="../static/index.js"></script>
+        <link rel="stylesheet" href="../static/style.css">
+        <script> src="https://maps.googleapis.com/maps/api/streetview?parameters"</script>
+        <title>Home </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <img id="imgurl" src={{imgurl}} alt="">
+
+       <!--  <div id="map"></div>
+        <div id="pano"></div>
+        <script
+         src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initialize&v=weekly"
+      async></script>-->
+    <script>$(function(){
+    
+        document.addEventListener('keydown', function(e) {
+        switch (e.keyCode) {
+            case 37:
+            loadNewData('/left');   
+            alert("left arrow"); 
+                break;
+            case 38:
+            loadNewData('/up');
+            alert("up arrow");     
+                break;
+            case 39:
+            loadNewData('/right');
+            alert("right arrow");   
+                break;
+            case 40:
+            loadNewData('/down');
+            alert("down arrow");   
+                break;
+        }
+    });
+            function loadNewData(route){
+                $.ajax({
+                    url:route,
+                    type:"POST",
+                    dataType:"json",
+                    success: function(data){
+                     console.log(data.url)
+                     //data here is the new json diction. So we use the dot notation to index the values that we want
+                       $(imgurl).attr("src", data.url)
+                       //console.log(data.url)
+                       //console.log(data.title)
+                    }
+                });
+            }
+
+});
+    </script>
+    </body>       
+</html>
